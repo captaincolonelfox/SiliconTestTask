@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TestTask - View Categories</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <th:block th:replace="header :: bootstrap">...</th:block>
+</head>
+<body>
+<th:block th:replace="header :: header">...</th:block>
+<table>
+    <th:block th:each="cat : ${categoryList}">
+        <tr>
+            <td>
+                <a th:text="${cat.name}" th:href="${'viewItems?category=' + cat.name}">link to category</a>
+            </td>
+            <td th:text="${cat.countOfItems}">count of items</td>
+            <td th:text="${cat.getShortDescription()}">description of category</td>
+            <td>
+                <form method="get">
+                    <button type="submit" name="edit" th:value="${cat.name}" class="btn btn-primary">edit</button>
+                    <button type="submit" name="delete" th:value="${cat.name}" class="btn btn-primary">delete</button>
+                </form>
+            </td>
+        </tr>
+    </th:block>
+</table>
+
+<th:block th:unless="${newCat eq 'true'}">
+    <form method="get">
+        <button type="submit" name="newCat">new</button>
+    </form>
+</th:block>
+
+<th:block th:if="${newCat eq 'true'}">
+    <form action="#" th:action="@{/viewCategories}" th:object="${category}" method="post">
+        <input type="text" th:field="*{name}">
+        <textarea th:field="*{description}"></textarea>
+        <button type="submit" name="add">add</button>
+    </form>
+</th:block>
+
+
+<!--<select name="itemsperpage">-->
+<!--<option>10</option>-->
+<!--<option>15</option>-->
+<!--<option>20</option>-->
+<!--</select>-->
+
+</body>
+</html>

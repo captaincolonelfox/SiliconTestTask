@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TestTask - View Items</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <th:block th:replace="header :: bootstrap">...</th:block>
+</head>
+<body>
+<th:block th:replace="header :: header">...</th:block>
+<table>
+    <tr th:each="item : ${items}">
+        <td>
+            <img th:width="100" height="100"
+                 th:src="${item.img != null} ?
+                 ${'/imgs/' + item.img} :
+                 ${'/imgs/No.jpg'}">
+        </td>
+        <td th:text="${item.name}">item name</td>
+        <td th:text="${item.description}">item desc</td>
+        <td th:text="${item.cost}">item cost</td>
+        <td th:text="${item.amount}">item amount</td>
+        <td>
+            <input type="button" class="btn btn-primary" value="edit">
+            <input type="button" class="btn btn-primary" value="delete">
+        </td>
+    </tr>
+</table>
+</body>
+</html>
