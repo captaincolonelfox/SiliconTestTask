@@ -42,6 +42,14 @@ public class Controller {
         return "viewCategories";
     }
 
+    @GetMapping(value = "/viewCategories", params = {"delete"})
+    public String editCategory(@RequestParam("delete") String deleteCategoryName) {
+        Category categoryToDelete = new Category();
+        categoryToDelete.setName(deleteCategoryName);
+        this.categoryService.removeCategory(categoryToDelete);
+        return  "redirect:/viewCategories";
+    }
+
     @PostMapping(value = "/viewCategories")
     public String addCategory(@ModelAttribute Category category, BindingResult bindingResult,
                               @RequestParam(value = "edit", required = false, defaultValue = "") String categoryToEdit) {
