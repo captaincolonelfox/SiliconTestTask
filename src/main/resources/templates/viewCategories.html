@@ -14,29 +14,46 @@
                 <a th:text="${cat.name}" th:href="${'viewItems?category=' + cat.name}">link to category</a>
             </td>
             <td th:text="${cat.countOfItems}">count of items</td>
-            <td th:text="${cat.getShortDescription()}">description of category</td>
-            <td>
-                <form method="get">
-                    <button type="submit" name="edit" th:value="${cat.name}" class="btn btn-primary">edit</button>
-                    <button type="submit" name="delete" th:value="${cat.name}" class="btn btn-primary">delete</button>
+
+            <td th:if="${categoryToEdit} == ${cat.getName()}">
+                <form th:object="${category}" method="post">
+                    <textarea th:field="*{description}" th:text="${cat.getDescription()}"></textarea>
+                    <button type="submit">update</button>
                 </form>
             </td>
+            <th:block th:unless="${categoryToEdit} == ${cat.getName()}">
+                <td th:text="${cat.getShortDescription()}">description of category</td>
+                <td>
+                    <form method="get">
+                        <button type="submit" name="edit" th:value="${cat.name}" class="btn btn-primary">edit</button>
+                        <button type="submit" name="delete" th:value="${cat.name}" class="btn btn-primary">delete</button>
+                    </form>
+                </td>
+            </th:block>
         </tr>
     </th:block>
 </table>
 
-<th:block th:unless="${newCat eq 'true'}">
+<th:block th:unless="${newCat} == true">
     <form method="get">
         <button type="submit" name="newCat">new</button>
     </form>
 </th:block>
 
-<th:block th:if="${newCat eq 'true'}">
+<th:block th:if="${newCat} == true">
     <form action="#" th:action="@{/viewCategories}" th:object="${category}" method="post">
-        <input type="text" th:field="*{name}">
-        <textarea th:field="*{description}"></textarea>
-        <button type="submit" name="add">add</button>
-    </form>
+        <div>
+            <p>
+                Имя категории:
+                <input type="text" th:field="*{name}">
+            </p>
+            <p>
+                Описание категории:
+                <textarea th:field="*{description}"></textarea>
+            </p>
+    <button type="submit"  name="add">add</button>
+        </div>
+</form>
 </th:block>
 
 
