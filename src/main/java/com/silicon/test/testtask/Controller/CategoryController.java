@@ -1,23 +1,17 @@
 package com.silicon.test.testtask.Controller;
 
-import com.silicon.test.testtask.Model.Item;
 import com.silicon.test.testtask.Model.Category;
-import com.silicon.test.testtask.Repo.IItemsRepository;
 import com.silicon.test.testtask.Service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @org.springframework.stereotype.Controller
-public class Controller {
+public class CategoryController {
 
     @Autowired
     CategoryService categoryService;
-    @Autowired
-    IItemsRepository itemRepo;
 
     @RequestMapping("/viewCategories")
     public String showCategories(Model model) {
@@ -60,14 +54,6 @@ public class Controller {
             category.setName(categoryToEdit);
         this.categoryService.addCategory(category);
         return  "redirect:/viewCategories";
-    }
-
-    @RequestMapping("/viewItems")
-    public String showItems(@RequestParam(name="category", required = false, defaultValue = "") String catParameter, Model model) {
-        List<Item> items = catParameter.equals("") ? itemRepo.findAll() : itemRepo.findByItemIdCategory(catParameter);
-        model.addAttribute("items", items);
-        model.addAttribute("catParameter", catParameter);
-        return "viewItems";
     }
 
 }
