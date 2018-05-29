@@ -37,7 +37,7 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/viewCategories", params = {"delete"})
-    public String editCategory(@RequestParam("delete") String deleteCategoryName) {
+    public String deleteCategory(@RequestParam("delete") String deleteCategoryName) {
         Category categoryToDelete = new Category();
         categoryToDelete.setName(deleteCategoryName);
         this.categoryService.removeCategory(categoryToDelete);

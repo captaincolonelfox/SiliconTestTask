@@ -12,8 +12,8 @@ public class Item {
     private float cost;
     private int amount;
 
-    protected Item() {
-
+    public Item() {
+        itemId = new ItemId();
     }
 
     public Item(ItemId itemid, String img, String description, float cost, int amount) {
@@ -84,6 +84,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item[name:" + itemId.getName() + ";img:" + img + ";]";
+        return "Item[name:" + itemId.getName() + ";category:" + itemId.getCategory() +
+                ";description:" + getDescription() + ";cost:" + getCost() + ";amount:" + getAmount() + "]";
     }
 }

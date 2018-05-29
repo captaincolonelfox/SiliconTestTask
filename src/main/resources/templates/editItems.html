@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TestTask - Edit Items</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <th:block th:replace="header :: bootstrap">...</th:block>
+</head>
+<body>
+<th:block th:replace="header :: header">...</th:block>
+
+<form method="post" action="#" th:action="@{/editItems}" th:object="${newItem}">
+    <div th:text="${item}"></div>
+    <div>
+        Категория: <input type="text" th:field="*{category}" th:value="${item.getCategory()}"> <br>
+        Имя: <input type="text" th:field="*{name}" th:value="${item.getName()}"> <br>
+        Описание: <textarea th:field="*{description}" th:text="${item.getDescription()}"></textarea> <br>
+        Цена: <input type="number" th:field="*{cost}" th:value="${item.getCost()}"> <br>
+        Количество: <input type="number" th:field="*{amount}" th:value="${item.getAmount()}"> <br>
+    </div>
+    <button type="submit">upload</button>
+</form>
+
+</body>

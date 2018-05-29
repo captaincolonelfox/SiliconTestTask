@@ -9,4 +9,5 @@ import java.util.List;
 public interface IItemsRepository extends JpaRepository<Item, ItemId> {
     List<Item> findByItemIdCategory(String category);
     List<Item> findByItemIdName(String name);
+    Item findByItemId(ItemId id);
 }

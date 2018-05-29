@@ -20,8 +20,12 @@
         <td th:text="${item.cost}">item cost</td>
         <td th:text="${item.amount}">item amount</td>
         <td>
-            <input type="button" class="btn btn-primary" value="edit">
-            <input type="button" class="btn btn-primary" value="delete">
+            <form method="get">
+                <input type="hidden" th:value="${item.name}" name="name">
+                <input type="hidden" th:value="${item.category}" name="cat">
+                <button type="submit" class="btn btn-primary" name="edit">edit</button>
+                <button type="submit" class="btn btn-primary" name="delete">delete</button>
+            </form>
         </td>
     </tr>
 </table>
