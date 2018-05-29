@@ -22,7 +22,7 @@
         <td th:switch="${item.img != null}">
             <img th:case="true"
                  th:width="100" height="100"
-                 src="" th:src="${'/imgs/' + item.getImg()}"
+                 src="" th:src="${'/imgs/' + item.getImg() + '.jpg'}"
                  class="img-thumbnail"/>
             <p th:case="false">Нет</p>
         </td>
