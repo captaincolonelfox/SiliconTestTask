@@ -7,55 +7,67 @@
 </head>
 <body>
 <th:block th:replace="header :: header">...</th:block>
-<table>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Название</th>
+        <th scope="col">Количество</th>
+        <th scope="col">Описание</th>
+        <th scope="col">Действия</th>
+    </tr>
+    </thead>
+
     <th:block th:each="cat : ${categoryList}">
         <tr>
-            <td>
-                <a th:text="${cat.name}" th:href="${'viewItems?category=' + cat.name}">link to category</a>
-            </td>
+            <td><a th:text="${cat.name}" th:href="${'viewItems?category=' + cat.name}">link to category</a></td>
             <td th:text="${cat.countOfItems}">count of items</td>
-
             <td th:if="${categoryToEdit} == ${cat.getName()}">
                 <form th:object="${category}" method="post">
-                    <textarea th:field="*{description}" th:text="${cat.getDescription()}"></textarea>
-                    <button type="submit">update</button>
+                    <textarea class="form-control" th:field="*{description}" th:text="${cat.getDescription()}"></textarea>
+                    <button style="float:right" class="btn btn-success" type="submit">update</button>
                 </form>
             </td>
-            <th:block th:unless="${categoryToEdit} == ${cat.getName()}">
-                <td th:text="${cat.getShortDescription()}">description of category</td>
-                <td>
-                    <form method="get">
-                        <button type="submit" name="edit" th:value="${cat.name}" class="btn btn-primary">edit</button>
-                        <button type="submit" name="delete" th:value="${cat.name}" class="btn btn-primary">delete</button>
-                    </form>
-                </td>
-            </th:block>
+
+            <td th:unless="${categoryToEdit} == ${cat.getName()}" th:text="${cat.getShortDescription()}">description of category</td>
+            <td>
+                <form method="get">
+                    <button class="btn btn-warning" type="submit" name="edit" th:value="${cat.name}">edit</button>
+                    <button class="btn btn-danger" type="submit" name="delete" th:value="${cat.name}">delete</button>
+                </form>
+            </td>
+
         </tr>
     </th:block>
+
 </table>
 
-<th:block th:unless="${newCat} == true">
-    <form method="get">
-        <button type="submit" name="newCat">new</button>
+<div class="container" id="bottomContainer">
+
+    <a class="btn btn-info" href="/viewItems">Посмотреть все товары</a>
+
+    <th:block th:unless="${newCat} == true">
+        <form action="#bottomContainer" method="get">
+            <button class="btn btn-outline-success" type="submit" name="newCat">Добавить новую категорию</button>
+        </form>
+    </th:block>
+
+    <th:block th:if="${newCat} == true">
+        <form action="#" th:action="@{/viewCategories}" th:object="${category}" method="post">
+            <a href="/viewCategories#bottomContainer" class="btn btn-outline-secondary">Скрыть</a>
+            <div class="container">
+                <p>
+                    Имя категории:
+                    <input class="form-control" type="text" th:field="*{name}">
+                </p>
+                <p>
+                    Описание категории:
+                    <textarea class="form-control" th:field="*{description}"></textarea>
+                </p>
+        <button class="btn btn-success" type="submit"  name="add">Добавить</button>
+            </div>
     </form>
-</th:block>
-
-<th:block th:if="${newCat} == true">
-    <form action="#" th:action="@{/viewCategories}" th:object="${category}" method="post">
-        <div>
-            <p>
-                Имя категории:
-                <input type="text" th:field="*{name}">
-            </p>
-            <p>
-                Описание категории:
-                <textarea th:field="*{description}"></textarea>
-            </p>
-    <button type="submit"  name="add">add</button>
-        </div>
-</form>
-</th:block>
-
+    </th:block>
+</div>
 
 <!--<select name="itemsperpage">-->
 <!--<option>10</option>-->

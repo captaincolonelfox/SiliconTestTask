@@ -8,16 +8,16 @@
 <body>
 <th:block th:replace="header :: header">...</th:block>
 
-<form method="post" action="#" th:action="@{/editItems}" th:object="${newItem}">
-    <div th:text="${item}"></div>
-    <div>
-        Категория: <input type="text" th:field="*{category}" th:value="${item.getCategory()}"> <br>
-        Имя: <input type="text" th:field="*{name}" th:value="${item.getName()}"> <br>
-        Описание: <textarea th:field="*{description}" th:text="${item.getDescription()}"></textarea> <br>
-        Цена: <input type="number" th:field="*{cost}" th:value="${item.getCost()}"> <br>
-        Количество: <input type="number" th:field="*{amount}" th:value="${item.getAmount()}"> <br>
-    </div>
-    <button type="submit">upload</button>
-</form>
+<div class="container">
+    <form method="post" action="#" th:action="@{/editItems}" th:object="${item}">
+        Категория: <input class="form-control" type="text" th:field="*{category}" th:value="*{getCategory()}"/> <br>
+        Имя: <input class="form-control" type="text" th:field="*{name}" th:value="*{getName()}"/> <br>
+        Описание: <textarea class="form-control" th:field="*{description}" th:text="*{description}"></textarea> <br>
+        Цена: <input class="form-control" step="0.1" type="number" th:field="*{cost}" th:value="*{cost}"/> <br>
+        Количество: <input class="form-control" type="number" th:field="*{amount}" th:value="*{amount}"/> <br>
+        <button class="btn btn-success" type="submit">Загрузить</button>
+    </form>
+</div>
+
 
 </body>

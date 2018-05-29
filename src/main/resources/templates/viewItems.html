@@ -7,27 +7,43 @@
 </head>
 <body>
 <th:block th:replace="header :: header">...</th:block>
-<table>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Картинка</th>
+        <th scope="col">Название</th>
+        <th scope="col">Описание</th>
+        <th scope="col">Цена</th>
+        <th scope="col">Количество</th>
+        <th scope="col">Действия</th>
+    </tr>
+    </thead>
     <tr th:each="item : ${items}">
-        <td>
-            <img th:width="100" height="100"
-                 th:src="${item.img != null} ?
-                 ${'/imgs/' + item.img} :
-                 ${'/imgs/No.jpg'}">
+        <td th:switch="${item.img != null}">
+            <img th:case="true"
+                 th:width="100" height="100"
+                 src="" th:src="${'/imgs/' + item.img}"
+                 class="img-thumbnail"/>
+            <p th:case="false">Нет</p>
         </td>
         <td th:text="${item.name}">item name</td>
         <td th:text="${item.description}">item desc</td>
         <td th:text="${item.cost}">item cost</td>
         <td th:text="${item.amount}">item amount</td>
         <td>
-            <form method="get">
+            <form method="get" th:action="@{/editItems}">
                 <input type="hidden" th:value="${item.name}" name="name">
                 <input type="hidden" th:value="${item.category}" name="cat">
-                <button type="submit" class="btn btn-primary" name="edit">edit</button>
-                <button type="submit" class="btn btn-primary" name="delete">delete</button>
+                <button type="submit" class="btn btn-warning" name="edit">edit</button>
+                <button type="submit" class="btn btn-danger" name="delete">delete</button>
             </form>
         </td>
     </tr>
 </table>
+<div class="container">
+    <form method="get" th:action="@{/editItems}">
+        <button class="btn btn-success" type="submit" name="edit">add</button>
+    </form>
+</div>
 </body>
 </html>
