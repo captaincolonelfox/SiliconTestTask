@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Controller
@@ -41,10 +44,10 @@ public class ItemController {
         return "redirect:/viewItems?category=" + item.getCategory();
     }
 
-    @GetMapping(value = "/viewItems", params = {"delete", "cat", "name"})
+    @GetMapping(value = "/editItems", params = {"delete", "cat", "name"})
     public String deleteItems(@RequestParam("cat") String catName,
-                              @RequestParam("name") String itemName) {
+                              @RequestParam("name") String itemName) throws UnsupportedEncodingException {
         itemRepo.delete(itemRepo.findByItemId(new ItemId(catName, itemName)));
-        return "redirect:/viewItems?category=" + catName;
+        return "redirect:/viewItems?category=" + URLEncoder.encode(catName, "UTF-8");
     }
 }
