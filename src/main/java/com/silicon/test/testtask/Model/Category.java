@@ -36,7 +36,7 @@ public class Category {
 
     public String getShortDescription() {
         if (description != null && description.length() > 150)
-            return description.substring(0,150);
+            return description.substring(0,150) + "...";
         return description;
     }
     public void setDescription(String description) {this.description = description;}
