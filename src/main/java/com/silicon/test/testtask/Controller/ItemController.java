@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -24,14 +25,14 @@ public class ItemController {
         return "viewItems";
     }
 
-    @GetMapping(value = "/viewItems", params = {"edit", "cat", "name"})
-    public String editItems(@RequestParam("cat") String catName,
-                            @RequestParam("name") String itemName,
+    @GetMapping(value = "/editItems", params = {"edit"})
+    public String editItems(@RequestParam(value = "cat", required = false, defaultValue = "") String catName,
+                            @RequestParam(value = "name", required = false, defaultValue = "") String itemName,
                             Model model) {
-        Item i = itemRepo.findByItemId(new ItemId(catName, itemName));
-        System.out.println(i);
-        model.addAttribute("item", i);
-        model.addAttribute("newItem", new Item());
+        if (catName.equals("") && itemName.equals(""))
+            model.addAttribute("item", new Item());
+        else
+            model.addAttribute("item", itemRepo.findByItemId(new ItemId(catName, itemName)));
         return "editItems";
     }
 

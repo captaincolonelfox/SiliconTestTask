@@ -13,14 +13,14 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
-    @RequestMapping("/viewCategories")
+    @RequestMapping(value  = {"/viewCategories", "/"})
     public String showCategories(Model model) {
         model.addAttribute(categoryService.getAllCategories());
         model.addAttribute("newCat", false);
         return "viewCategories";
     }
 
-    @GetMapping(value = "/viewCategories", params = "newCat")
+    @GetMapping(value  = {"/viewCategories", "/"}, params = "newCat")
     public String newCategory(Model model) {
         model.addAttribute("newCat", true);
         model.addAttribute(categoryService.getAllCategories());
@@ -28,7 +28,7 @@ public class CategoryController {
         return "viewCategories";
     }
 
-    @GetMapping(value = "/viewCategories", params = {"edit"})
+    @GetMapping(value  = {"/viewCategories", "/"}, params = {"edit"})
     public String editCategory(Model model, @RequestParam("edit") String editCategory) {
         model.addAttribute("categoryToEdit", editCategory);
         model.addAttribute(categoryService.getAllCategories());
@@ -36,7 +36,7 @@ public class CategoryController {
         return "viewCategories";
     }
 
-    @GetMapping(value = "/viewCategories", params = {"delete"})
+    @GetMapping(value  = {"/viewCategories", "/"}, params = {"delete"})
     public String deleteCategory(@RequestParam("delete") String deleteCategoryName) {
         Category categoryToDelete = new Category();
         categoryToDelete.setName(deleteCategoryName);
@@ -44,7 +44,7 @@ public class CategoryController {
         return  "redirect:/viewCategories";
     }
 
-    @PostMapping(value = "/viewCategories")
+    @PostMapping(value  = {"/viewCategories", "/"})
     public String addCategory(@ModelAttribute Category category, BindingResult bindingResult,
                               @RequestParam(value = "edit", required = false, defaultValue = "") String categoryToEdit) {
         if (bindingResult.hasErrors()) {
