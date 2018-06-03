@@ -32,7 +32,7 @@
             <td>
                 <form method="get">
                     <button class="btn btn-warning" type="submit" name="edit" th:value="${cat.name}">Редактировать</button>
-                    <button class="btn btn-danger" type="submit" name="delete" th:value="${cat.name}">Удалить</button>
+                    <button class="btn btn-danger" type="submit" name="delete" th:value="${cat.name}" onclick="return confirm('Вы уверены?');">Удалить</button>
                 </form>
             </td>
 

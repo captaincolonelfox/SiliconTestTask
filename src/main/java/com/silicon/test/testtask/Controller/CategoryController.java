@@ -3,6 +3,7 @@ package com.silicon.test.testtask.Controller;
 import com.silicon.test.testtask.Model.Category;
 import com.silicon.test.testtask.Service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class CategoryController {
         model.addAttribute("newCat", false);
         return "viewCategories";
     }
-
+    @Secured("ROLE_ADMIN")
     @GetMapping(value  = {"/viewCategories", "/"}, params = "newCat")
     public String newCategory(Model model) {
         model.addAttribute("newCat", true);
@@ -27,7 +28,7 @@ public class CategoryController {
         model.addAttribute("category", new Category());
         return "viewCategories";
     }
-
+    @Secured("ROLE_ADMIN")
     @GetMapping(value  = {"/viewCategories", "/"}, params = {"edit"})
     public String editCategory(Model model, @RequestParam("edit") String editCategory) {
         model.addAttribute("categoryToEdit", editCategory);
@@ -35,7 +36,7 @@ public class CategoryController {
         model.addAttribute("category", new Category());
         return "viewCategories";
     }
-
+    @Secured("ROLE_ADMIN")
     @GetMapping(value  = {"/viewCategories", "/"}, params = {"delete"})
     public String deleteCategory(@RequestParam("delete") String deleteCategoryName) {
         Category categoryToDelete = new Category();
@@ -43,7 +44,7 @@ public class CategoryController {
         this.categoryService.removeCategory(categoryToDelete);
         return  "redirect:/viewCategories";
     }
-
+    @Secured("ROLE_ADMIN")
     @PostMapping(value  = {"/viewCategories", "/"})
     public String addCategory(@ModelAttribute Category category, BindingResult bindingResult,
                               @RequestParam(value = "edit", required = false, defaultValue = "") String categoryToEdit) {

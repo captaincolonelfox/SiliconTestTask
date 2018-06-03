@@ -35,7 +35,7 @@
                 <input type="hidden" th:value="${item.name}" name="name">
                 <input type="hidden" th:value="${item.category}" name="cat">
                 <button type="submit" class="btn btn-warning" name="edit">Редактировать</button>
-                <button type="submit" class="btn btn-danger" name="delete">Удалить</button>
+                <button type="submit" class="btn btn-danger" name="delete" onclick="return confirm('Вы уверены?');">Удалить</button>
             </form>
         </td>
     </tr>
