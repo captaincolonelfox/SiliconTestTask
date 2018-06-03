@@ -5,6 +5,9 @@ import com.silicon.test.testtask.Model.ItemId;
 import com.silicon.test.testtask.Model.User;
 import com.silicon.test.testtask.Repo.IItemsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.List;
 
 @Controller
 public class ItemController {
@@ -22,8 +24,10 @@ public class ItemController {
     IItemsRepository itemRepo;
 
     @RequestMapping("/viewItems")
-    public String showItems(@RequestParam(name="category", required = false, defaultValue = "") String catParameter, Model model) {
-        List<Item> items = catParameter.equals("") ? itemRepo.findAll() : itemRepo.findByItemIdCategory(catParameter);
+    public String showItems(@RequestParam(name="category", required = false, defaultValue = "") String catParameter,
+                            @PageableDefault Pageable pageable,
+                            Model model) {
+        Page<Item> items = catParameter.equals("") ? itemRepo.findAll(pageable) : itemRepo.findByItemIdCategory(catParameter, pageable);
         model.addAttribute("items", items);
         model.addAttribute("catParameter", catParameter);
         if (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getRole().equals("ROLE_USER"))
@@ -37,6 +41,11 @@ public class ItemController {
                             Model model) {
         if (catName.equals("") && itemName.equals(""))
             model.addAttribute("item", new Item());
+        else if (!catName.equals("")) {
+            Item item = new Item();
+            item.setCategory(catName);
+            model.addAttribute("item", item);
+        }
         else
             model.addAttribute("item", itemRepo.findByItemId(new ItemId(catName, itemName)));
         return "editItems";

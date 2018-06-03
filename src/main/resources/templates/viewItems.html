@@ -42,6 +42,7 @@
 </table>
 <div class="container" th:if="${regularUser} == null">
     <form method="get" th:action="@{/editItems}">
+        <input type="hidden" name="cat" th:value="${catParameter}"/>
         <button class="btn btn-success" type="submit" name="edit">Добавить</button>
     </form>
 </div>
