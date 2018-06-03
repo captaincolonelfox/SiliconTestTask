@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>TestTask - View Categories</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -29,12 +29,13 @@
             </td>
 
             <td th:unless="${categoryToEdit} == ${cat.getName()}" th:text="${cat.getShortDescription()}">description of category</td>
-            <td>
+            <td th:if="${regularUser} == null">
                 <form method="get">
                     <button class="btn btn-warning" type="submit" name="edit" th:value="${cat.name}">Редактировать</button>
                     <button class="btn btn-danger" type="submit" name="delete" th:value="${cat.name}" onclick="return confirm('Вы уверены?');">Удалить</button>
                 </form>
             </td>
+
 
         </tr>
     </th:block>
@@ -45,7 +46,7 @@
 
     <a class="btn btn-info" href="/viewItems">Посмотреть все товары</a>
 
-    <th:block th:unless="${newCat} == true">
+    <th:block th:if="${regularUser} == null" th:unless="${newCat}">
         <form action="#bottomContainer" method="get">
             <button class="btn btn-outline-success" type="submit" name="newCat">Добавить новую категорию</button>
         </form>

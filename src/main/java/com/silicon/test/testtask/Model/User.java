@@ -87,4 +87,5 @@ public class User implements UserDetails {
     public void setRoles(String role) {
         this.role = role;
     }
+    public String getRole() {return role;}
 }

@@ -2,9 +2,11 @@ package com.silicon.test.testtask.Controller;
 
 import com.silicon.test.testtask.Model.Item;
 import com.silicon.test.testtask.Model.ItemId;
+import com.silicon.test.testtask.Model.User;
 import com.silicon.test.testtask.Repo.IItemsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,8 @@ public class ItemController {
         List<Item> items = catParameter.equals("") ? itemRepo.findAll() : itemRepo.findByItemIdCategory(catParameter);
         model.addAttribute("items", items);
         model.addAttribute("catParameter", catParameter);
+        if (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getRole().equals("ROLE_USER"))
+            model.addAttribute("regularUser", true);
         return "viewItems";
     }
     @Secured("ROLE_ADMIN")

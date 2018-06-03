@@ -16,7 +16,6 @@
     <context:component-scan base-package="com.silicon.test"/>
 
     <bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
-
         <property name="additionalDialects">
             <set>
                 <bean class="org.thymeleaf.spring5.dialect.SpringStandardDialect"/>

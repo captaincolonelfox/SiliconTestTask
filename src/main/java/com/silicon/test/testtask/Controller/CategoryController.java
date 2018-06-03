@@ -1,9 +1,11 @@
 package com.silicon.test.testtask.Controller;
 
 import com.silicon.test.testtask.Model.Category;
+import com.silicon.test.testtask.Model.User;
 import com.silicon.test.testtask.Service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,8 @@ public class CategoryController {
     public String showCategories(Model model) {
         model.addAttribute(categoryService.getAllCategories());
         model.addAttribute("newCat", false);
+        if (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getRole().equals("ROLE_USER"))
+            model.addAttribute("regularUser", true);
         return "viewCategories";
     }
     @Secured("ROLE_ADMIN")

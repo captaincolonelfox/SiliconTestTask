@@ -30,7 +30,7 @@
         <td th:text="${item.description}">item desc</td>
         <td th:text="${item.cost}">item cost</td>
         <td th:text="${item.amount}">item amount</td>
-        <td>
+        <td th:if="${regularUser} == null">
             <form method="get" th:action="@{/editItems}">
                 <input type="hidden" th:value="${item.name}" name="name">
                 <input type="hidden" th:value="${item.category}" name="cat">
@@ -40,7 +40,7 @@
         </td>
     </tr>
 </table>
-<div class="container">
+<div class="container" th:if="${regularUser} == null">
     <form method="get" th:action="@{/editItems}">
         <button class="btn btn-success" type="submit" name="edit">Добавить</button>
     </form>
