@@ -51,10 +51,9 @@
             На странице:
             <select class="custom-select" name="size" style="width: auto;" onchange="this.form.submit()">
                 <option th:text="${pageSize}">pageSize</option>
-                <option th:text="10">10</option>
-                <option th:text="15">15</option>
-                <option th:text="20">20</option>
-                <option th:text="25">25</option>
+                <th:block th:each="value : ${#numbers.sequence(1,4)}">
+                    <option th:if="${value * 10 != pageSize}" th:text="${value*10}"></option>
+                </th:block>
             </select>
         </label>
     </form>
