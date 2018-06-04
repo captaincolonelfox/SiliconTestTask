@@ -41,7 +41,7 @@ public class ItemController {
                             Model model) {
         if (catName.equals("") && itemName.equals(""))
             model.addAttribute("item", new Item());
-        else if (!catName.equals("")) {
+        else if (!catName.equals("") && itemName.equals("")) {
             Item item = new Item();
             item.setCategory(catName);
             model.addAttribute("item", item);
