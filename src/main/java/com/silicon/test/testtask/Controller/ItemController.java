@@ -30,6 +30,8 @@ public class ItemController {
         Page<Item> items = catParameter.equals("") ? itemRepo.findAll(pageable) : itemRepo.findByItemIdCategory(catParameter, pageable);
         model.addAttribute("items", items);
         model.addAttribute("catParameter", catParameter);
+        model.addAttribute("currentPage", pageable.getPageNumber());
+        model.addAttribute("pageSize", items.getSize());
         if (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getRole().equals("ROLE_USER"))
             model.addAttribute("regularUser", true);
         return "viewItems";

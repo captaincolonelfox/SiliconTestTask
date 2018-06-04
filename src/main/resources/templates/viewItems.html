@@ -40,18 +40,36 @@
         </td>
     </tr>
 </table>
-<div class="container" th:if="${regularUser} == null">
-    <form method="get" th:action="@{/editItems}">
+<div class="container justify-content-start" >
+    <form th:if="${regularUser} == null" method="get" th:action="@{/editItems}">
         <input type="hidden" name="cat" th:value="${catParameter}"/>
         <button class="btn btn-success" type="submit" name="edit">Добавить</button>
     </form>
+    <form method="get">
+        <input type="hidden" name="category" th:value="${catParameter}">
+        <label th:fragment="selectpages">
+            На странице:
+            <select class="custom-select" name="size" style="width: auto;" onchange="this.form.submit()">
+                <option th:text="${pageSize}">pageSize</option>
+                <option th:text="10">10</option>
+                <option th:text="15">15</option>
+                <option th:text="20">20</option>
+                <option th:text="25">25</option>
+            </select>
+        </label>
+    </form>
 </div>
+
 <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
         <li th:class="${items.isFirst()}? 'page-item disabled' : 'page-item'"><a class="page-link" href="#">Предыдущая</a></li>
-        <li th:each="i : ${#numbers.sequence(1, items.getTotalPages())}">
-            <a class="page-link" href="#" th:text="${i}"></a>
-        </li>
+
+        <th:block th:each="i : ${#numbers.sequence(1, items.getTotalPages())}">
+            <li th:class="${currentPage == i - 1}? 'page-item active' : 'page-item'">
+                <a class="page-link" th:href="@{/viewItems(category=${catParameter},page=${i-1},size=${pageSize})}" th:text="${i}"></a>
+            </li>
+        </th:block>
+
         <li th:class="${items.isLast()}? 'page-item disabled' : 'page-item'"><a class="page-link" href="#">Следующая</a></li>
     </ul>
 </nav>
