@@ -7,6 +7,7 @@ import com.silicon.test.testtask.Repo.IItemsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,13 +26,15 @@ public class ItemController {
 
     @RequestMapping("/viewItems")
     public String showItems(@RequestParam(name="category", required = false, defaultValue = "") String catParameter,
+                            @RequestParam(name="sort", required = false) String currentSort,
                             @PageableDefault Pageable pageable,
-                            Model model) {
+                            Model model){
         Page<Item> items = catParameter.equals("") ? itemRepo.findAll(pageable) : itemRepo.findByItemIdCategory(catParameter, pageable);
         model.addAttribute("items", items);
         model.addAttribute("catParameter", catParameter);
         model.addAttribute("currentPage", pageable.getPageNumber());
         model.addAttribute("pageSize", items.getSize());
+        model.addAttribute("currentSort", currentSort);
         if (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getRole().equals("ROLE_USER"))
             model.addAttribute("regularUser", true);
         return "viewItems";

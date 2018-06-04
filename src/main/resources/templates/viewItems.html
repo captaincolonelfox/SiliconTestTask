@@ -11,10 +11,26 @@
     <thead>
     <tr>
         <th scope="col">Картинка</th>
-        <th scope="col">Название</th>
+        <th scope="col">
+            <a th:unless="${currentSort == 'itemIdName,ASC'}"
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'itemIdName,ASC'})}">Название▲</a>
+            <a th:if="${currentSort == 'itemIdName,ASC'}"
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'itemIdName,DESC'})}">Название▼</a>
+        </th>
         <th scope="col">Описание</th>
-        <th scope="col">Цена</th>
-        <th scope="col">Количество</th>
+        <th scope="col">
+            <a th:unless="${currentSort == 'cost,ASC'}"
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'cost,ASC'})}">Цена▲</a>
+            <a th:if="${currentSort == 'cost,ASC'}"
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'cost,DESC'})}">Цена▼</a>
+        </th>
+        <th scope="col">
+            <a th:unless="${currentSort == 'amount,ASC'}"
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'amount,ASC'})}">Количество▲</a>
+            <a th:if="${currentSort == 'amount,ASC'}"
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'amount,DESC'})}">Количество▼</a>
+
+        </th>
         <th scope="col">Действия</th>
     </tr>
     </thead>
@@ -61,15 +77,11 @@
 
 <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
-        <li th:class="${items.isFirst()}? 'page-item disabled' : 'page-item'"><a class="page-link" href="#">Предыдущая</a></li>
-
         <th:block th:each="i : ${#numbers.sequence(1, items.getTotalPages())}">
             <li th:class="${currentPage == i - 1}? 'page-item active' : 'page-item'">
-                <a class="page-link" th:href="@{/viewItems(category=${catParameter},page=${i-1},size=${pageSize})}" th:text="${i}"></a>
+                <a class="page-link" th:href="@{/viewItems(category=${catParameter},page=${i-1},size=${pageSize}, sort=${currentSort})}" th:text="${i}"></a>
             </li>
         </th:block>
-
-        <li th:class="${items.isLast()}? 'page-item disabled' : 'page-item'"><a class="page-link" href="#">Следующая</a></li>
     </ul>
 </nav>
 </body>
