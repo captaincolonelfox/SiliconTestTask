@@ -54,25 +54,25 @@
 <body class="text-center">
 
 <form class="form-signin" method="post" action="/login">
-    <h1 class="h3 mb-3 font-weight-normal">Please log in</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Пожалуйста, войдите</h1>
     <div th:if="${logout} == true" class="alert alert-success" role="alert">
-        You've been logged out successfully.
+        Вы успешно вышли.
     </div>
     <div th:if="${error} == true" class="alert alert-danger" role="alert">
-        Invalid Username or Password!
+        Неправильное имя или пароль
     </div>
-    <label for="inputUser" class="sr-only">Username</label>
+    <label for="inputUser" class="sr-only">Логин</label>
     <input type="text" id="inputUser" name="username" class="form-control" placeholder="Username" required="" autofocus="">
-    <label for="inputPassword" class="sr-only">Password</label>
+    <label for="inputPassword" class="sr-only">Пароль</label>
     <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="">
     <div class="checkbox mb-3">
         <label>
-            <input id="remember_me" type="checkbox" name="remember-me"> Remember me
+            <input id="remember_me" type="checkbox" name="remember-me"> Запомнить меня
         </label>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#">New around here? Sign up</a>
-    <a class="dropdown-item" href="#">Forgot password?</a>
+    <a class="dropdown-item" href="#">Зарегистрироваться</a>
+    <a class="dropdown-item" href="#">Забыл пароль?</a>
 </form>
 </body>
