@@ -9,12 +9,16 @@
 <th:block th:replace="header :: header">...</th:block>
 
 <div class="container">
-    <form method="post" action="#" th:action="@{/editItems}" th:object="${item}">
+    <form method="post" action="#" th:action="@{/editItems}" th:object="${item}" enctype="multipart/form-data">
         Категория: <input class="form-control" type="text" th:field="*{category}" th:value="*{getCategory()}"/> <br>
         Имя: <input class="form-control" type="text" th:field="*{name}" th:value="*{getName()}"/> <br>
         Описание: <textarea class="form-control" th:field="*{description}" th:text="*{description}"></textarea> <br>
         Цена: <input class="form-control" step="0.1" type="number" th:field="*{cost}" th:value="*{cost}"/> <br>
         Количество: <input class="form-control" type="number" th:field="*{amount}" th:value="*{amount}"/> <br>
+        <div class="form-group">
+            <label for="imageForm">Картинка:</label>
+            <input type="file" name="image" class="form-control-file" id="imageForm">
+        </div>
         <button class="btn btn-success" type="submit">Загрузить</button>
     </form>
 </div>

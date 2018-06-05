@@ -12,24 +12,29 @@
     <tr>
         <th scope="col">Картинка</th>
         <th scope="col">
-            <a th:unless="${currentSort == 'itemIdName,ASC'}"
-               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'itemIdName,ASC'})}">Название▲</a>
+            <a th:unless="${currentSort == 'itemIdName,DESC' || currentSort == 'itemIdName,ASC'}"
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'itemIdName,ASC'})}">Название</a>
+            <a th:if="${currentSort == 'itemIdName,DESC'}"
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'itemIdName,ASC'})}">Название▼</a>
             <a th:if="${currentSort == 'itemIdName,ASC'}"
-               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'itemIdName,DESC'})}">Название▼</a>
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'itemIdName,DESC'})}">Название▲</a>
         </th>
         <th scope="col">Описание</th>
         <th scope="col">
-            <a th:unless="${currentSort == 'cost,ASC'}"
-               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'cost,ASC'})}">Цена▲</a>
+            <a th:unless="${currentSort == 'cost,DESC' || currentSort == 'cost,ASC'}"
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'cost,ASC'})}">Цена</a>
+            <a th:if="${currentSort == 'cost,DESC'}"
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'cost,ASC'})}">Цена▼</a>
             <a th:if="${currentSort == 'cost,ASC'}"
-               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'cost,DESC'})}">Цена▼</a>
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'cost,DESC'})}">Цена▲</a>
         </th>
         <th scope="col">
-            <a th:unless="${currentSort == 'amount,ASC'}"
-               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'amount,ASC'})}">Количество▲</a>
-            <a th:if="${currentSort == 'amount,ASC'}"
-               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'amount,DESC'})}">Количество▼</a>
-
+            <a th:unless="${currentSort == 'amount,DESC' || currentSort == 'amount,ASC'}"
+               th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'amount,ASC'})}">Количество</a>
+                <a th:if="${currentSort == 'amount,DESC'}"
+                   th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'amount,ASC'})}">Количество▼</a>
+                <a th:if="${currentSort == 'amount,ASC'}"
+                   th:href="@{/viewItems(category=${catParameter},page=${currentPage},size=${pageSize}, sort=${'amount,DESC'})}">Количество▲</a>
         </th>
         <th scope="col">Действия</th>
     </tr>
@@ -38,7 +43,7 @@
         <td th:switch="${item.img != null}">
             <img th:case="true"
                  th:width="100" height="100"
-                 src="" th:src="${'/imgs/' + item.getImg() + '.jpg'}"
+                 src="" th:src="${imagePrefix + item.img + '.jpg'}"
                  class="img-thumbnail"/>
             <p th:case="false">Нет</p>
         </td>

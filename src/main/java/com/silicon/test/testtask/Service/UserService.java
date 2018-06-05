@@ -1,11 +1,7 @@
 package com.silicon.test.testtask.Service;
 
-
-import com.google.inject.internal.util.ImmutableList;
-import com.silicon.test.testtask.Model.Role;
 import com.silicon.test.testtask.Model.User;
 import com.silicon.test.testtask.Repo.IUserRepository;
-import jdk.nashorn.internal.ir.annotations.Immutable;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.userdetails.UserDetails;
